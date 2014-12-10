@@ -7,7 +7,7 @@
   end
 
   def run
-    input = get_input
+    input = get_input($stdin)
     tok = tokens(input)
     puts "SOLUTION: #{evaluate(tok)}"
   end
@@ -66,23 +66,26 @@
     value
   end
 
-  def get_input
-
+  def get_input(file)
     input = []
+    functions = [ "+", "-", "*", "/" ]
 
     puts "Start Entering your Numbers and Symbols"
     puts "Use numbers, +, -, *, and /"
     puts "Press enter when done."
 
-    loop do
-      next_command = gets.chomp
-      if next_command == ""
-        break
+    file.each do |line|
+      line = line.chomp
+
+      if functions.include?(line)
+        input << line  
+      elsif line =~ /\A[0-9]+\z/
+        input << line
       else
-        input << next_command
+         break
       end
     end
-
+    
     input
   end
 
