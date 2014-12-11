@@ -1,6 +1,6 @@
 class MazeSolver
 
-  attr_accessor :s_coords, :e_coords, :map, :solution_lengths
+  attr_reader :s_coords, :e_coords, :map, :solution_lengths
 
   def initialize(file = "maze.txt")
     @map = read_map(file)
@@ -76,16 +76,21 @@ class MazeSolver
 
   def solve(arr_path_of_coords = [@s_coords], solved = false)
 
+    puts "\e[34mSOL LEN MIN: #{solution_lengths.min} | ARR P O C LENGTH: #{arr_path_of_coords.length}\e[0m"
+    show_map_with_solution(arr_path_of_coords)
+
     results = []
     possible_moves = get_next_possible(arr_path_of_coords)
 
     if solved
+      puts "\e[34m!!!!!!!!!!!SOLVED!!!!!!!!!!!!\e[0m"
       solution = deep_dup(arr_path_of_coords)
       solution_lengths << solution.length
       results << solution
     elsif possible_moves.empty? # Trapped.
       results
-    elsif solution_lengths.empty? || solution_lengths.min < arr_path_of_coords.length
+    elsif solution_lengths.empty? || 
+          solution_lengths.min > (arr_path_of_coords.length + distance_to_end(arr_path_of_coords.last))
       possible_moves.each do |move|
         solved = true if move == @e_coords
         arr_path_of_coords << move
@@ -95,6 +100,16 @@ class MazeSolver
     end
 
     results
+  end
+
+  def distance_to_end(pos)
+    row, col = pos
+    e_row, e_col = e_coords
+
+    vert_distance = (e_row - row).abs
+    hori_distance = (e_col - col).abs
+
+    vert_distance + hori_distance - 1
   end
 
   def check_direction(row_change, col_change, arr_path)
@@ -121,10 +136,11 @@ class MazeSolver
     right = check_direction(0,1, arr_path)
 
     results << up if up
-    results << right if right
+    
     results << down if down
     results << left if left
-
+    results << right if right
+    
     results
   end
 
