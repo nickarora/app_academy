@@ -61,14 +61,14 @@ class WordChainer
     @source = source
 
     until @current_words.empty?
-      new_current_words = explore_current_words
+      new_current_words = explore_current_words(target)
       @current_words = new_current_words
     end
 
     p build_path(target)
   end
 
-  def explore_current_words
+  def explore_current_words(target)
 
     new_current_words = []
 
@@ -77,13 +77,10 @@ class WordChainer
         unless @all_seen_words.keys.include? adj_word
           new_current_words << adj_word 
           @all_seen_words[adj_word] = current_word
+          return new_current_words if adj_word == target #break early if we've found our guy
         end
       end
     end
-
-    # new_current_words.each do |word|
-    #   puts "\nnew_current_word: #{word} \n source: #{@all_seen_words[word]}"
-    # end
 
     new_current_words
   end
