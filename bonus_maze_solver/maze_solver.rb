@@ -1,153 +1,148 @@
+require_relative 'maze_tree_node'
+
+class NoStartError < ArgumentError
+end
+
 class MazeSolver
 
-  attr_reader :s_coords, :e_coords, :map, :solution_lengths
+  MOVEMENTS = [[-1,0], [1,0], [0,-1], [0,1]]
 
-  def initialize(file = "maze.txt")
+  def initialize(file)
+    file ||= 'maze.txt'
     @map = read_map(file)
-    @s_coords = find_coords('S')
-    @e_coords = find_coords('E')
-    @solution_lengths = []
+    @start_pos = find_coords('S')
+    @root_node = MazeTreeNode.new(@start_pos)
+    @end_pos = nil
+    @visited = []
   end
 
-  def read_map(file)
-    arr = Array.new
-    lines = File.readlines(file).map(&:chomp)
-    lines.each do |line|
-      arr << line.split("")
-    end
-
-    arr
-  end
-
-  def show_shortest_solution
+  def solve
+    build_tree
+    solution = find_path(@end_pos)
     show_map
-    solutions = solve
-    puts "\e[32mSOLUTION\e[0m"
-    show_map_with_solution(solutions.min)
-    puts "Thanks for using MazeSolver!"
+    show_map_with_solution(solution)
   end
 
-  def show_map
-    puts "\n\e[31mTHE MAZE\e[0m"
-    map.each do |row|
-      puts "\e[31m" + row.join + "\e[0m"
-    end
-  end
-
-  def show_map_with_solution(arr_path)
-    temp_map = deep_dup(map)
-
-    arr_path.each do |coords|
-      temp_map[coords[0]][coords[1]] = "\e[32mX\e[0m"
+  private
+    def inspect
+      { :start_pos => @start_pos,
+        :end_pos => @end_pos,
+        :visited => @visited }.inspect
     end
 
-    temp_map.each do |row|
-      puts row.join
-    end
-  end
+    def read_map(file)
+      arr = Array.new
+      lines = File.readlines(file).map(&:chomp)
+      lines.each do |line|
+        arr << line.split("")
+      end
 
-  def deep_dup(arr_2d)
-    new_arr = []
-
-    arr_2d.each do |row|
-      new_arr << row.dup
+      arr
     end
 
-    new_arr
-  end
+    def build_tree
+      node_queue = [@root_node]
 
-  def find_coords(char)
-    coords = []
-    map.each_with_index do |row, row_idx|
-      row.each_with_index do |map_item, col_idx|
-        if map_item == char
-          coords = [row_idx, col_idx]
+      until node_queue.empty?
+        current_node = node_queue.shift
+        if self[current_node.pos] == 'E'
+          @end_pos = current_node.pos
+          break
+        end
+        new_moves = get_next_possible(current_node.pos)
+        new_moves.each do |move|
+          new_node = MazeTreeNode.new(move)
+          current_node.add_child(new_node)
+          node_queue << new_node
+          @visited << move
         end
       end
+
+      nil
     end
 
-    if coords.empty?
-      puts "\e[31mINVALID MAZE INPUT!\e[0m"
-      exit(0)
+    def [](pos)
+      row, col = pos
+      @map[row][col]
     end
 
-    coords
-  end
+    def []=(pos, el)
+      row,col = pos
+      @map[row][col] = el
+    end
 
-  def solve(arr_path_of_coords = [@s_coords], solved = false)
-
-    puts "\e[34mSOL LEN MIN: #{solution_lengths.min} | ARR P O C LENGTH: #{arr_path_of_coords.length}\e[0m"
-    show_map_with_solution(arr_path_of_coords)
-
-    results = []
-    possible_moves = get_next_possible(arr_path_of_coords)
-
-    if solved
-      puts "\e[34m!!!!!!!!!!!SOLVED!!!!!!!!!!!!\e[0m"
-      solution = deep_dup(arr_path_of_coords)
-      solution_lengths << solution.length
-      results << solution
-    elsif possible_moves.empty? # Trapped.
-      results
-    elsif solution_lengths.empty? || 
-          solution_lengths.min > (arr_path_of_coords.length + distance_to_end(arr_path_of_coords.last))
-      possible_moves.each do |move|
-        solved = true if move == @e_coords
-        arr_path_of_coords << move
-        results += solve(arr_path_of_coords, solved)
-        arr_path_of_coords.pop
+    def show_map
+      puts "\n\e[31mTHE MAZE\e[0m"
+      @map.each do |row|
+        puts "\e[31m" + row.join + "\e[0m"
       end
+
+      nil
     end
 
-    results
-  end
+    def find_coords(char)
+      coords = []
+      @map.each_with_index do |row, row_idx|
+        row.each_with_index do |map_item, col_idx|
+          if map_item == char
+            coords = [row_idx, col_idx]
+          end
+        end
+      end
 
-  def distance_to_end(pos)
-    row, col = pos
-    e_row, e_col = e_coords
-
-    vert_distance = (e_row - row).abs
-    hori_distance = (e_col - col).abs
-
-    vert_distance + hori_distance - 1
-  end
-
-  def check_direction(row_change, col_change, arr_path)
-
-    current_row = arr_path.last[0]
-    current_col = arr_path.last[1]
-
-    if map[current_row + row_change][current_col + col_change] != nil and
-      (map[current_row + row_change][current_col + col_change] != "*") and
-      !arr_path.include?([current_row + row_change,current_col + col_change])
-      return [current_row + row_change, current_col + col_change]
+      raise NoStartError.new "Invalid Maze File!" if coords.empty?
+      
+      coords
     end
 
-    return false
-  end
+    def check_direction(row_change, col_change, pos)
+      current_row, current_col = pos[0], pos[1]
 
-  def get_next_possible(arr_path)
-    results = Array.new
+      if @map[current_row + row_change][current_col + col_change] != nil and
+        (@map[current_row + row_change][current_col + col_change] != "*")
+        return [current_row + row_change, current_col + col_change]
+      end
 
-    # UP
-    up = check_direction(-1,0, arr_path)
-    down = check_direction(1,0, arr_path)
-    left = check_direction(0,-1, arr_path)
-    right = check_direction(0,1, arr_path)
+      return false
+    end
 
-    results << up if up
-    
-    results << down if down
-    results << left if left
-    results << right if right
-    
-    results
-  end
+    def get_next_possible(pos)
+      checks = []
+      MOVEMENTS.each do |vert, horiz|
+        checks << check_direction(vert, horiz, pos)
+      end
 
+      checks.reject { |n| !n || @visited.include?(n) }
+    end
+
+    def find_path(end_pos)
+       @root_node.bfs(end_pos).trace_path_back.reverse
+    end
+
+    def show_map_with_solution(arr_path)
+      temp_map = deep_dup(@map)
+      arr_path.each { |coords| temp_map[coords[0]][coords[1]] = "\e[32mX\e[0m" }
+      temp_map.each { |row| puts row.join }
+
+      nil
+    end
+
+    def deep_dup(arr_2d)
+      new_arr = []
+      arr_2d.each { |row| new_arr << row.dup }
+      
+      new_arr
+    end
 
 end
 
 if __FILE__ == $0
-  maze = MazeSolver.new(ARGV.first)
-  maze.show_shortest_solution
+  
+  if ARGV.empty?
+    maze = MazeSolver.new('maze.txt')
+  else
+    maze = MazeSolver.new(ARGV.first)
+  end
+
+  maze.solve
 end
