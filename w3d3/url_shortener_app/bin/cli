@@ -1,0 +1,24 @@
+
+puts "input your email"
+email = gets.chomp
+puts "What do you want to do?"
+puts "0. Create shortened URL"
+puts "1. Visit shortened URL"
+
+user = User.find_by(:email => email)
+
+action_choice = gets.chomp.to_i
+
+
+case action_choice
+when 0
+  puts "Type in your long url"
+  long_url = gets.chomp
+  shorty = ShortenedUrl.create_for_user_and_long_url!(user, long_url)
+  puts "here's the shortened url #{shorty.short_url}"
+when 1
+  puts "Type in the shortened URL"
+  shorty = gets.chomp
+  shorty_object = ShortenedUrl.find_by(:short_url => shorty)
+  Visit.record_visit!(user, shorty_object)
+end
