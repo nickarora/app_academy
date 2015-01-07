@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>99 Cats</title>
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+
+	<div class="container">
+	  <!-- <center><%= image_tag("images.jpeg", width:100) %><h1>99 CATS</h1></center> -->
+	  <div class="page-header">
+	   <h1 class="text-warning">NINETYNINE CATS</h1><%= image_tag("images.jpeg", align: 'right', width:100) %>
+		</div>
+		<p>Welcome to nintey-nine cats, the internet's one-stop shop for feline rentals. Be sure to browse our wide selection of pets who may or may not care whether you live or die.</p>
+	 </div>
+
+  <%= yield %>
+
+</body>
+</html>

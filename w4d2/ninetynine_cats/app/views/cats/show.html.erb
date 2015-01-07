@@ -1,0 +1,74 @@
+ <div class="container">
+  <div class="panel panel-primary">
+    <div class="panel-heading"><h4><%= @cat.name %></h4></div>
+
+    <table class="table table-condensed">
+      <tr>
+        <td>Name:</td>
+        <td><%= @cat.name %></td>
+      </tr>
+
+      <tr>
+        <td>Age:</td>
+        <td><%= @cat.age %></td>
+      </tr>
+
+      <tr>
+        <td>Fur Color:</td>
+        <td><%= @cat.color %></td>
+      </tr>
+
+      <tr>
+        <td>Sex:</td>
+        <td><%= @cat.sex == "M" ? "Male" : "Female" %></td>
+      </tr>
+
+      <tr>
+        <td>Description:</td>
+        <td><%= @cat.description %></td>
+      </tr>
+
+    </table>
+  </div>
+
+  <div class="panel panel-primary">
+    <div class="panel-heading"><h4>Requested Rentals</h4></div>
+
+      <ul class="list-group">
+        
+        <li class="list-group-item">
+          <em><%= @cat.not_denied_requests.empty? ? "None!" : "" %></em>
+        </li>
+
+        <% @cat.not_denied_requests.each do |req| %>
+          <li class="list-group-item">
+            <%= req.start_date.strftime("%B %d, %Y") %> to <%= req.end_date.strftime("%B %d, %Y") %>
+            
+            <% if req.pending? %>
+              
+              <div style="display:inline-block;">
+                <%= button_to("Approve", cat_rental_request_approval_url(req), method: :get) %>
+              </div>
+              <div style="display:inline-block;">
+                <%= button_to("Deny", cat_rental_request_denial_url(req), method: :get) %>
+              </div>
+
+            <% end %>
+            
+            <% if req.approved? %>
+              <div style="display:inline-block;">
+                <%= button_to("Delete", cat_rental_request_url(req), method: :delete) %>
+              </div>
+            <% end %>
+          </li>
+        <% end %>
+      </ul>
+
+  </div>
+
+   <%= link_to "Back to Index", cats_url, :class => "btn btn-primary" %>
+   <%= link_to "Rent #{@cat.name}", new_cat_rental_request_url(@cat), :class => "btn btn-primary" %>
+   <%= link_to "Edit", edit_cat_url(@cat), :class => "btn btn-primary" %>
+   <%= link_to "Delete", cat_url(@cat), :method => :delete, :class => "btn btn-danger" %>
+  
+</div>
