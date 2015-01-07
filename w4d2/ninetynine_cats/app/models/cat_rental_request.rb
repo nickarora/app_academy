@@ -32,22 +32,29 @@ class CatRentalRequest < ActiveRecord::Base
   # private
 
   def overlapping_requests
-    CatRentalRequest.find_by_sql(<<-SQL)
-    SELECT
-      crr.*
-    FROM
-      cat_rental_requests crr
-    WHERE
-      crr.cat_id = #{cat_id} AND
-      (
-        (crr.start_date BETWEEN TO_DATE ('#{start_date}', 'yyyy-mm-dd') AND TO_DATE ('#{end_date}', 'yyyy-mm-dd' )) OR
-        (crr.end_date BETWEEN TO_DATE ('#{start_date}', 'yyyy-mm-dd') AND TO_DATE ('#{end_date}', 'yyyy-mm-dd')) OR
-        (
-          crr.start_date <= TO_DATE ('#{start_date}', 'yyyy-mm-dd') AND
-          crr.end_date >= TO_DATE ('#{end_date}', 'yyyy-mm-dd')
-        )
-      )
+    CatRentalRequest
+      .where("(:id IS NULL) OR (id != :id)", id: self.id)
+      .where(cat_id: cat_id)
+      .where(<<-SQL, start_date: start_date, end_date: end_date)
+       NOT( (start_date > :end_date) OR (end_date < :start_date) )
     SQL
+
+    # CatRentalRequest.find_by_sql(<<-SQL)
+    # SELECT
+    #   crr.*
+    # FROM
+    #   cat_rental_requests crr
+    # WHERE
+    #   crr.cat_id = #{cat_id} AND
+    #   (
+    #     (crr.start_date BETWEEN TO_DATE ('#{start_date}', 'yyyy-mm-dd') AND TO_DATE ('#{end_date}', 'yyyy-mm-dd' )) OR
+    #     (crr.end_date BETWEEN TO_DATE ('#{start_date}', 'yyyy-mm-dd') AND TO_DATE ('#{end_date}', 'yyyy-mm-dd')) OR
+    #     (
+    #       crr.start_date <= TO_DATE ('#{start_date}', 'yyyy-mm-dd') AND
+    #       crr.end_date >= TO_DATE ('#{end_date}', 'yyyy-mm-dd')
+    #     )
+    #   )
+    # SQL
   end
 
   def overlapping_approved_requests
