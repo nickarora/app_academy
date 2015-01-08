@@ -8,6 +8,43 @@
 </head>
 <body>
 
+   <nav class="navbar navbar-inverse">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="<%= cats_url %>"><%= image_tag("paw.png", width:30) %></a>
+      </div>
+
+      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <ul class="nav navbar-nav navbar-right">
+          <% if current_user %>
+            <li class="active">
+              <%= link_to("Logout", session_url(current_token), class: "btn btn-default navbar-btn", method: :delete ) %>
+            </li>
+            <li class="active">
+              <%= link_to("#{current_user.user_name.capitalize}'s Profile", user_url(current_user), class:"btn btn-default navbar-btn") %>
+            </li
+          <% else %>
+            <li class="active">
+              <%= link_to("Login", login_url, class: "btn btn-default navbar-btn" ) %>
+            </li>
+            <li class="active">
+              <%= link_to("Sign up for a New Account", new_user_url, class:"btn btn-default navbar-btn") %>
+            </li>
+          <% end %>
+        </ul>
+      </div>
+
+    </div>
+  </nav> 
+
 	<div class="container">
 	  <div class="page-header">
 	   <h1 class="text-warning">NINETYNINE CATS</h1><%= image_tag("images.jpeg", align: 'right', width:100) %>
@@ -17,14 +54,6 @@
       rentals. Be sure to browse our wide selection of pets who may or may
       not care whether you live or die.
     </p>
-
-    <% if current_user %>
-      <%= button_to("Logout #{current_user.user_name}", session_url(current_token), method: :delete) %>
-      <%= link_to("Profile", user_url(current_user)) %>
-    <% else %>
-      <%= button_to("Login", login_url, method: :get) %>
-      <%= link_to("Sign up for a New Account", new_user_url) %>
-    <% end %>
 
 	 </div>
 
