@@ -1,0 +1,16 @@
+<div class="container">
+
+	<div class="panel panel-primary">
+    <div class="panel-heading"><h4>Some of our furry friends currently available for Rental </h4></div>
+		<div class="list-group">
+		  <% @cats.each do |cat| %>
+			  <a href="<%= cat_path(cat) %>" class="list-group-item">
+			  	<%= cat.name %>
+			  </a>
+		  <% end %>
+		</div>
+	</div>
+
+	<%= link_to "Register a New Cat", new_cat_url, :class => "btn btn btn-success btn-lg" %>
+
+</div>

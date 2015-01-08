@@ -1,0 +1,34 @@
+<div class="container">
+
+	<div class="panel panel-primary">
+    <div class="panel-heading"><h4><%= @user.user_name.capitalize %>'s cats</h4></div>
+		<div class="list-group">
+		  <% @cats.each do |cat| %>
+  		  <a href="<%= cat_path(cat) %>" class="list-group-item">
+  		  	<%= cat.name %>
+  		  </a>
+		  <% end %>
+		</div>
+	</div>
+
+  <%= render 'layouts/requests_list', cats: @cats %>
+
+	<% if current_user == @user %>
+		<div class="panel panel-primary">
+			<div class="panel-heading"><h4><%= @user.user_name.capitalize %>'s Logins</h4></div>
+			<div class="list-group">
+				<% @user.session_tokens.each do |token| %>
+					<div class="list-group-item">
+						<%= token.environment %>
+						<div style="display:inline-block;">
+							<%= button_to 'logout', session_url(token), method: :delete %>
+						</div>
+					</div>
+				<% end %>
+			</div>
+		</div>
+	<% end %>
+
+	<%= link_to "Register a New Cat", new_cat_url, :class => "btn btn btn-success btn-lg" %>
+
+</div>

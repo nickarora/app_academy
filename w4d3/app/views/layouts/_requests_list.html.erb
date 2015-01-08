@@ -1,0 +1,45 @@
+<div class="panel panel-primary">
+  <div class="panel-heading"><h4>Requested Rentals</h4></div>
+
+  <ul class="list-group">
+
+    <% if cats.all?{ |c| c.not_denied_requests.empty? } %>
+      <li class="list-group-item">
+        <em>None!</em>
+      </li>
+    <% end %>
+
+    <% cats.each do |cat| %>
+      <% cat.not_denied_requests.each do |req| %>
+        <li class="list-group-item">
+          <%= link_to cat.name.capitalize, cat_url(cat) %> requested by <%= req.user.user_name %> from
+          <%= req.start_date.strftime("%B %d, %Y") %> to
+              <%= req.end_date.strftime("%B %d, %Y") %>
+
+          <% if cat.user_id == current_user.id %>
+
+          <% if req.pending? %>
+
+          <div style="display:inline-block;">
+            <%= button_to("Approve", approval_cat_rental_request_url(req), method: :post) %>
+          </div>
+          <div style="display:inline-block;">
+            <%= button_to("Deny", denial_cat_rental_request_url(req), method: :post) %>
+          </div>
+
+          <% end %>
+
+          <% if req.approved? %>
+          <div style="display:inline-block;">
+            <%= button_to("Delete", cat_rental_request_url(req), method: :delete) %>
+          </div>
+          <% end %>
+
+          <% end %>
+
+        </li>
+      <% end %>
+    <% end %>
+  </ul>
+
+</div>

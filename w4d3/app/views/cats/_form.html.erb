@@ -1,0 +1,57 @@
+<% action_path = (cat.persisted? ? cat_url(cat) : cats_url) %>
+<% http_request = (cat.persisted? ? "patch" : "post") %>
+<% button_msg = (cat.persisted? ? "Update Cat!" : "Build new Cat") %>
+
+<form action="<%= action_path %>" method="post">
+
+    <input type="hidden" name="_method" value=<%= http_request %>>
+    <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+
+    <div class="form-group">
+      <label for="cat_name">Name:</label>
+      <input name="cat[name]" class="form-control" id="cat_name" type="text" value="<%=cat.name%>">
+    </div>
+
+    <div class="form-group">
+      <label for="cat_sex">Sex:</label>
+        <input name="cat[sex]" id="cat_sex_m" type="radio" value="M"
+          <%= cat.sex == "M" ? "checked" : "" %> >
+        <label for="cat_sex_m">Male</label>
+        <input name="cat[sex]" id="cat_sex_f" type="radio" value="F"
+          <%= cat.sex == "F" ? "checked" : "" %>>
+        <label for="cat_sex_f">Female</label>
+    </div>
+
+
+    <div class="form-group">
+      <label for="cat_description">Description</label>
+      <textarea name="cat[description]" class="form-control" id="cat_description" ><%=cat.description %>
+      </textarea>
+    </div>
+
+    <div class="form-group">
+      <label for="cat_color">Color</label>
+      <select name="cat[color]" class="form-control">
+        <% colors.each do |color| %>
+        <option value="<%= color %>" <%= cat.color == color ? "selected" : "" %>>
+          <%= color %>
+        </option>
+        <% end %>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label for="cat_birth_date">Birth date</label>
+      <input name="cat[birth_date]" class="form-control" id="cat_birth_date" type="date" value="<%= cat.birth_date.to_s %>"></input>
+    </div>
+
+    <button type="submit" class="btn btn-primary"><%= button_msg %></button>
+
+    <% if cat.persisted? %>
+      <%= link_to "Cancel", cat_url(@cat), :class => "btn btn-danger" %>
+    <% else %>
+      <%= link_to "Back to Index", cats_url, :class => "btn btn-danger" %>
+    <% end %>
+
+
+</form>

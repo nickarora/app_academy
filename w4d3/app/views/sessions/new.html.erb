@@ -1,0 +1,24 @@
+<div class="container">
+  <h1>Log in!</h1>
+
+  <form action="<%= session_index_url %>" method="post">
+
+    <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+
+    <div class="form-group">
+      <label for="user_name">Username:</label>
+      <input name="session[user_name]" class="form-control" id="user_name"
+             type="text" value="<%=@user.user_name%>">
+    </div>
+    <div class="form-group">
+      <label for="user_password">Password:</label>
+      <input name="session[password]" class="form-control" id="user_password"
+             type="password">
+    </div>
+
+    <button type="submit" class="btn btn-primary">Login!</button>
+
+    <%= link_to "Back to Index", cats_url, :class => "btn btn-danger" %>
+
+  </form>
+</div>

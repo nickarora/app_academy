@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>99 Cats</title>
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+
+	<div class="container">
+	  <div class="page-header">
+	   <h1 class="text-warning">NINETYNINE CATS</h1><%= image_tag("images.jpeg", align: 'right', width:100) %>
+		</div>
+		<p>
+      Welcome to ninety-nine cats, the internet's one-stop shop for feline
+      rentals. Be sure to browse our wide selection of pets who may or may
+      not care whether you live or die.
+    </p>
+
+    <% if current_user %>
+      <%= button_to("Logout #{current_user.user_name}", session_url(current_token), method: :delete) %>
+      <%= link_to("Profile", user_url(current_user)) %>
+    <% else %>
+      <%= button_to("Login", login_url, method: :get) %>
+      <%= link_to("Sign up for a New Account", new_user_url) %>
+    <% end %>
+
+	 </div>
+
+   <%= yield %>
+
+</body>
+</html>
