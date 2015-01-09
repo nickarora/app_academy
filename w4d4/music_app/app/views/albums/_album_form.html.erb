@@ -1,0 +1,43 @@
+<% action = (album.persisted? ? album_url(album) : albums_url) %>
+<% method = (album.persisted? ? :patch : :post) %>
+<% submit_txt = (album.persisted? ? "Update Album" : "Create Album") %>
+
+<%= render '/layouts/errors' %>
+
+<form action="<%= action %>" method="POST">
+
+	<input type='hidden' name='_method' value="<%= method %>" %>
+	<input type='hidden' name="album[band_id]" value="<%=album.band_id%>" %>
+	<%= render '/layouts/form_authenticity' %>
+
+
+	<%= render '/layouts/form_dropdown',
+						label_name: 'Band Name',
+						key: 'album',
+						col_name: 'band_id',
+						arr: Band.all,
+						selected: album.band_id %>
+
+	<br>
+
+	<%= render 'layouts/form_text', 
+							label_name: 'Album Name',
+							key: 'album',
+							col_name: 'name',
+							default_value: album.name %>
+	
+
+	<br>
+
+	<%= render '/layouts/form_radio',
+						label_name: 'Recording Type',
+						key: 'album',
+						col_name: 'recording_type',
+						arr: Album::RECORDING_TYPES,
+						selected: album.recording_type %>
+						
+	<br>
+
+	<input type="submit" value="<%=submit_txt%>">
+
+</form>

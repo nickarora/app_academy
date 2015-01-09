@@ -1,0 +1,25 @@
+<%= render '/layouts/errors' %>
+<form action="<%= path %>" method="POST">
+
+	<%= render '/layouts/form_authenticity' %>
+
+	<label for="email_input">Email:</label>
+	<input
+		type="text"
+		id="email_input"
+		name="<%= key %>[email]"
+		value="<%= @user.email %>">
+
+	<br>
+
+	<label for="password_input">Password:</label>
+	<input
+		type="text"
+		id="password_input"
+		name="<%= key %>[password]">
+
+	<br>
+
+	<input type="submit" value="login">
+
+</form>

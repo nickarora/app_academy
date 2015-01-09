@@ -1,0 +1,16 @@
+<!-- # label_name, key, col_name, array, selected -->
+
+<label for="<%= label_name %>"><%= label_name %>:</label>
+<select id="<%= label_name %>" name="<%= key %>[<%= col_name %>]">
+	<% arr.each do |element| %>
+		<% if element.is_a?(String) %>
+			<option value="<%= element %>" <%= "selected" if element == selected %>>
+				<%= element %>
+			</option>
+		<% else %>
+			<option value="<%= element.id %>" <%= "selected" if element.id == selected %>>
+				<%= element.name %>
+			</option>
+		<% end %>
+  <% end %> 
+</select>

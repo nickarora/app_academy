@@ -1,0 +1,13 @@
+<!-- # label_name, key, col_name, array, selected -->
+
+<label for="<%= label_name %>"><%= label_name %>:</label>
+<br>
+<% arr.each do |element| %>
+	<input 	type="radio" 
+					id="<%= label_name %>" 
+					name="<%= key %>[<%= col_name %>]"
+					value="<%= element %>"
+					<%= "checked" if element == selected %>>
+	<%= element %>
+	<br>
+<% end %>

@@ -1,0 +1,25 @@
+<h1><%= link_to @band.name, band_url(@band) %> | <%= link_to @album.name, album_url(@album) %></h1>
+<em><h2><%= @track.name %></h2></em>
+
+(<%= @track.version %> track | <%=@album.recording_type%> recording)
+<br><br>
+Lyrics:<br>
+<pre><%= ugly_lyrics(@track.lyrics) %></pre>
+
+<br><br>
+<%= render '/notes/form', track: @track %>
+
+<label><strong>Notes from other users:</strong></label>
+<ol>
+	<% @track.notes.each do |note| %>
+		<li>
+			<em>"<%=note.content%>"</em>
+			<% if current_user && current_user.id == note.user_id %>
+				<div style='display:inline-block;'>
+					<%= button_to 'delete', note_url(note), method: :delete %>
+				</div>
+			<% end %>
+		</li>
+	<% end %>
+</ol>
+

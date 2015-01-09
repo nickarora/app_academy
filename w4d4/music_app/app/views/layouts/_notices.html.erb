@@ -1,0 +1,8 @@
+<% if flash[:notice] %>
+	<br><strong><%= flash[:notice].first %></strong><br>
+<% end %>
+
+<% if flash[:errors] %>
+	<br><strong>Warning: <%= flash[:errors].first %></strong><br>
+<% end %>
+

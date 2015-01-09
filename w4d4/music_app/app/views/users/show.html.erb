@@ -1,0 +1,11 @@
+<h1> Welcome, <%= @user.email %>! </h1>
+
+You are currently logged
+<%= current_user && current_user.email == @user.email ? "in." : "out." %>
+
+<br>
+<% if current_user %>
+	<%= link_to "Log out", session_url, method: 'DELETE' %>
+<% end %>
+<br>
+<%= link_to "Back to Index", users_url %>

@@ -1,0 +1,12 @@
+<h1> Index Page </h1>
+
+
+<h3>Users</h3>
+<ul>
+<% User.all.each do |user| %>
+	<li><%= link_to "#{user.email}", user_url(user) %></li>
+<% end %>
+</ul>
+
+<br>
+<%= link_to "New User", new_user_url %>

@@ -1,0 +1,48 @@
+<% action = (track.persisted? ? track_url(track) : tracks_url) %>
+<% method = (track.persisted? ? :patch : :post) %>
+<% submit_txt = (track.persisted? ? "Update Track" : "Create Track") %>
+
+<%= render '/layouts/errors' %>
+
+<form action="<%= action %>" method="POST">
+
+	<input type='hidden' name='_method' value="<%= method %>" %>
+	<input type='hidden' name="track[album_id]" value="<%=track.album_id%>" %>
+	<%= render '/layouts/form_authenticity' %>
+
+
+	<%= render '/layouts/form_dropdown',
+						label_name: 'Album Name',
+						key: 'track',
+						col_name: 'album_id',
+						arr: Album.all,
+						selected: track.album_id %>
+
+	<br>
+
+	<%= render 'layouts/form_text', 
+							label_name: 'Track Name',
+							key: 'track',
+							col_name: 'name',
+							default_value: track.name %>
+	
+
+	<br>
+
+	<%= render '/layouts/form_radio',
+						label_name: 'Track Version',
+						key: 'track',
+						col_name: 'version',
+						arr: Track::VERSIONS,
+						selected: track.version %>
+						
+	<br>
+
+	<label for="Lyrics">Lyrics:</label>
+  <textarea name="track[lyrics]" id="Lyrics" ><%=track.lyrics%></textarea>
+  
+  <br>
+
+	<input type="submit" value="<%=submit_txt%>">
+
+</form>
