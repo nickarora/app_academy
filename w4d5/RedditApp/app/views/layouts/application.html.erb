@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Reddit App</title>
+  <%= stylesheet_link_tag    'application', media: 'all',
+                             'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+  <%= render 'layouts/header' %>
+  <div class="container">
+    <% if flash[:notice] %>
+      <p><%= flash[:notice] %></p>
+    <% end %>
+
+    <% if flash[:errors] %>
+      Errors:
+      <ul>
+        <% flash[:errors].each do |err| %>
+        <li>
+          <%= err %>
+        </li>
+        <% end %>
+      </ul>
+    <% end %>
+
+    <%= yield %>
+  </div
+
+</body>
+</html>

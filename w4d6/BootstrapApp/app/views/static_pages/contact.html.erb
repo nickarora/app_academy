@@ -1,0 +1,57 @@
+<div class="row">
+	<div class="col-sm-5 col-sm-offset-1">
+		<h3>We've got your back.</h3>
+
+		<p>Have a question or need help? Use the form or contact us at support@yourkarma.com</p>
+
+		<h3>What's the status of my order?</h3>
+
+		<p>We’re working on a way for you to check your order status online, but for now, our staff is on hand to assist. Monday–Friday, 9am–6pm ET. 
+		You can also reach us via Twitter, @yourKarma</p>
+
+		<h3>How do I set up a return?</h3>
+
+		<p>We have a 30-day, no-questions-asked return policy. Visit our Self Service Return Center so we can get started on the return process.</p>
+	</div>
+
+	<div class="col-sm-5">
+		<h3>Contact Us</h3>
+		
+		<p>Our Help Center can help you get answers to your questions fast and easy.</p>
+
+		<form action="/user" method="POST">
+	    <input
+	      type="hidden"
+	      name="authenticity_token"
+	      value="<%= form_authenticity_token %>">
+	    
+	    <div class="form-group">
+	      <label for="Full Name">Full Name</label>
+	      <input
+	        type="text"
+	        class="form-control"
+	        name="user[fullname]"
+	        id="Full NAme">
+	    </div>
+
+	    <div class="form-group">
+	      <label for="Email">Email</label>
+	      <input type="text"
+	             class="form-control"
+	             name="user[email]" 
+	             id="Email">
+	    </div>
+
+	    <div class="form-group">
+	      <label for="question">Question</label>
+	      <textarea class="form-control" id="question" name="user[question]"></textarea>
+	    </div>
+
+	    <div class="form-group">
+	      <button class="btn btn-primary" type="button">Create User!</button>
+	    </div>
+
+ 		 </form>
+
+	</div>
+</div>

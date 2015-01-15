@@ -1,0 +1,20 @@
+<h3><%= @sub.title %></h3>
+<pre><%= @sub.description %></pre>
+<%= button_to "Edit", edit_sub_url, method: :get, class: "btn btn-default" %>
+
+<h4>Posts:</h4>
+<% if @posts %>
+  <table>
+    <% @posts.each do |post| %>
+    <tr>
+      <td>
+        <%= link_to post.title, user_post_url(post) %>
+      </td>
+    </tr>
+    <% end %>
+  </table>
+<% end %>
+<br>
+
+<%= button_to "Create a New Post", new_user_post_url,
+              method: :get, class: 'btn btn-primary' %>

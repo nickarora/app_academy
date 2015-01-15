@@ -1,0 +1,13 @@
+<table>
+  <% @subs.each do |sub| %>
+    <tr>
+      <td>
+        <%= link_to sub.title, sub_url(sub) %>
+        <br><%= sub.description %>
+      </td>
+    </tr>
+  <% end %>
+</table>
+
+<br>
+<%= button_to "Create a New Sub", new_sub_url, method: :get, class: 'btn btn-primary' %>
