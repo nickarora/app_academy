@@ -30,11 +30,9 @@ Game.prototype.run = function(completionCallback) {
       handleInput(pos)
     });
   } else{
-    setTimeout(function(){ //artificial delay to simulate a human thinking!
-      that.computer.getMove(function(pos){
-        handleInput(pos)
-      });
-    }, 250);
+    that.computer.getMove(function(pos){
+      handleInput(pos)
+    });
   }
 
 };

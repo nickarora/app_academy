@@ -73,30 +73,47 @@ Board.prototype.won = function() {
   return result;
 };
 
-Board.prototype.winner = function() {
-  return this.winner;
-};
+Board.prototype.getAvailableMoves = function(){
 
-Board.prototype.empty = function(pos) {
-  x = pos[0];
-  y = pos[1];
-
-  if (this.grid[y][x] === null ) {
-      return true;
+  var moves = [];
+  for(var row=0; row < 3; row++){
+    for(var col=0; col < 3; col++){
+      if (this.grid[row][col] == null){
+        moves.push([col, row]);
+      }
+    }
   }
 
-  return false;
-};
+  return moves;
+}
 
 Board.prototype.placeMark = function(pos, mark) {
-  x = pos[0];
-  y = pos[1];
+  var x = pos[0];
+  var y = pos[1];
 
   if (this.empty(pos)) {
     this.grid[y][x] = mark;
     return true;
   }
   return false;
+};
+
+Board.prototype.empty = function(pos) {
+  var x = pos[0];
+  var y = pos[1];
+
+  if (this.grid[y][x] == null ) {
+      return true;
+  }
+
+  return false;
+};
+
+Board.prototype.deleteMark = function(pos) {
+  var x = pos[0];
+  var y = pos[1];
+
+  this.grid[y][x] = null;
 };
 
 Board.prototype.display = function(){
