@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link href='http://fonts.googleapis.com/css?family=Architects+Daughter' rel='stylesheet' type='text/css'>
+  <link href="./ttt.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+
+  <center>
+
+    <h2>tic. tac. toe.</h2>
+    
+    <div class="row">
+      <div class="square l" id="00"></div>
+      <div class="square d" id="10"></div>
+      <div class="square l" id="20"></div>
+    </div>
+
+    <div class="row">
+      <div class = "square d" id="01"></div>
+      <div class = "square l" id="11"></div>
+      <div class = "square d" id="21"></div>
+    </div>
+
+    <div class="row">
+      <div class = "square l" id="02"></div>
+      <div class = "square d" id="12"></div>
+      <div class = "square l" id="22"></div>
+    </div>
+
+
+    <div class="row">
+      <h3><div id="output"></div></h3>
+    <end>
+
+    <section class="flat">
+      <button onclick="location.href='./ttt.html'">reset game</button>
+    </section>
+
+  </center>
+
+
+  <script src="./board.js"></script>
+  <script src="./computer.js"></script>
+  <script src="./human.js"></script>
+  <script src="./game.js"></script>
+  <script src="./playTicTacToe.js"></script>
+</body>
+</html>

@@ -1,0 +1,84 @@
+.row {
+  height: 104px;
+}
+
+.square {
+  display: inline-block;
+  vertical-align:top;
+  width: 100px;
+  height: 100px;
+  font-size: 75px;
+  color:  white;
+  text-align: center;
+	vertical-align: middle;
+	line-height: 100px;
+	font-family: 'Architects Daughter', sans-serif;
+}
+
+.d {
+	background-color: #FFD933;
+}
+
+div.l:hover {
+	background-color: #96963C;
+}
+
+.l {
+	background-color: #CCCC52;
+}
+
+
+div.d:hover {
+	background-color: #BFA326;
+}
+
+body {
+	background-color: white;
+}
+
+h2 {
+	font-size: 40px;
+	font-family: 'Architects Daughter', sans-serif;
+	color: #192B33;
+	margin: 0 0 0 0;
+	letter-spacing: -2px;
+}
+
+h3 {
+	font-family: 'Architects Daughter', sans-serif;
+	color: #192B33;
+}
+
+button {
+  display: inline-block;
+  margin: 0 0 0 0;
+  width: 312px;
+  height: 50px;
+  font-size: 20px;
+  font-family: 'Architects Daughter', sans-serif;
+  line-height: 1.8;
+  appearance: none;
+  box-shadow: none;
+  border-radius: 0;
+}
+
+button:focus {
+  outline: none
+}
+
+section.flat button {
+  color: #fff;
+  background-color: #6496c8;
+  text-shadow: -1px 1px #417cb8;
+  border: none;
+}
+section.flat button:hover,
+section.flat button.hover {
+  background-color: #346392;
+  text-shadow: -1px 1px #27496d;
+}
+section.flat button:active,
+section.flat button.active {
+  background-color: #27496d;
+  text-shadow: -1px 1px #193047;
+}
