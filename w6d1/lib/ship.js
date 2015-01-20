@@ -4,7 +4,7 @@
 
   var Ship  = Asteroids.Ship = function(obj) {
 
-    var COLOR = "red";
+    var COLOR = "#BDD684";
     var RADIUS = 20;
 
     this.invincible = true;
@@ -26,10 +26,10 @@
   Ship.prototype.makeVulnerable = function() {
     var ship = this;
     this.invincible = true;
-    this.color = "red";
+    this.color = "#95AB63";
     this.flash = 0;
     setTimeout(function() {
-      ship.color = "green";
+      ship.color = "#BDD684";
       ship.invincible = false;
     }, 2000);
   }
@@ -38,7 +38,7 @@
     if (this.invincible) {
       this.flash += 1;
       if (this.flash > 3){
-        this.color = (this.color == "red" ? "black" : "red");
+        this.color = (this.color == "#95AB63" ? "#F6FFE0" : "#95AB63");
         this.flash = 0;
       }
     }

@@ -70,10 +70,14 @@
     var self = this;
     this.bindKeyHandlers();
 
-    window.setInterval((function () {
+    var gameInterval = window.setInterval((function () {
       self.game.step();
       self.updateImpulse();
-      self.game.draw(this.ctx);
+      self.game.draw(self.ctx);
+      if (self.game.allAsteroids.length == 0) { 
+        self.game.won(self.ctx);
+        clearInterval(gameInterval); 
+      }
     }).bind(self), 1000 / 20);
   }
 

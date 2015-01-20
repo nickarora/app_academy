@@ -1,0 +1,26 @@
+.bg {
+  background-color: #F6FFE0;
+}
+
+body {
+	position: relative;
+	top: 20px;
+	overflow-y:hidden;
+}
+
+h1 {
+	font-family: 'Montserrat', sans-serif;
+	width: 640px;
+	color: #C47522;
+	text-align: center;
+}
+
+p {
+	width: 640px;
+	font-family: 'Neuton', serif;
+	text-align: justify;
+}
+
+p#center {
+	text-align: center;
+}

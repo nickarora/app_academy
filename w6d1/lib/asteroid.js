@@ -4,7 +4,7 @@
 
   var Asteroid = Asteroids.Asteroid = function(obj) {
 
-    var COLOR = "gray"
+    var COLOR = "#E2F0D6"
     var RADIUS = 40;
     var length = Math.floor((Math.random() * 6) + 5);
 

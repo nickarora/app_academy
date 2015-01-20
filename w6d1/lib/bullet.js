@@ -3,7 +3,7 @@
 	var util = new Asteroids.Util();
 
 	var Bullet  = Asteroids.Bullet = function(obj) {
-		var COLOR = "green";
+		var COLOR = "#F6FFE0";
     var RADIUS = 4;
     var bulletObj = {
       pos: obj.pos,

@@ -43,8 +43,15 @@
 
   }
 
+  Game.prototype.won = function(ctx){
+    this.clearScreen(ctx);
+    ctx.fillStyle = "white";
+    ctx.font = "bold 60px Arial";
+    ctx.fillText("GREAT JOB!", 130, 260);
+  };
+
   Game.prototype.clearScreen = function(ctx) {
-    ctx.fillStyle="black";
+    ctx.fillStyle="#10222B";
     ctx.fillRect(0, 0, DIM_X, DIM_Y);
   }
 
