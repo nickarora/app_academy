@@ -6,8 +6,8 @@
 
 
   var Game = Asteroids.Game = function(){
+    // create asteroids
     this.allAsteroids = [];
-
     this.addAsteroids = function(){
       for(var i = 0; i < NUM_ASTEROIDS; i++){
         randX = Math.floor((Math.random() * DIM_X))
@@ -19,19 +19,19 @@
         this.allAsteroids.push(new Asteroids.Asteroid(newAsteroid));
       }
     };
-
     this.addAsteroids();
+
+    // create ship
     var newShip = { pos: [DIM_X / 2, DIM_Y / 2], game: this };
     this.ship = new Asteroids.Ship(newShip);
     this.ship.makeVulnerable();
+
+    // prepare for bullets
+    this.bullets = [];
   };
 
   Game.prototype.allObjects = function() {
-    if (this.ship) {
-      return this.allAsteroids.concat([this.ship]);
-    } else {
-      return this.allAsteroids;
-    }
+    return this.allAsteroids.concat([this.ship]).concat(this.bullets);
   };
 
   Game.prototype.draw = function(ctx){
@@ -81,7 +81,7 @@
           obj1 = this.allObjects()[i];
           obj2 = this.allObjects()[j];
           if (obj1 instanceof Asteroids.Asteroid &&
-              obj2 instanceof Asteroids.Ship) {
+              (obj2 instanceof Asteroids.Ship || obj2 instanceof Asteroids.Bullet)) {
               if (obj1.isCollidedWith(obj2)){
                 obj1.collideWith(obj2);
                 return;
@@ -93,8 +93,6 @@
   }
 
   Game.prototype.respawnShip = function() {
-    /* reset the ship to [0,0]
-       call make vulnerable! */
     this.ship.pos = [DIM_X / 2, DIM_Y / 2];
     this.ship.vel = [0,0];
     this.ship.makeVulnerable();
@@ -122,6 +120,27 @@
       if (index !== null) {
         this.allAsteroids.splice(index, 1);
       }
+    } else if (obj instanceof Asteroids.Bullet) {
+
+      var index = null;
+
+      for(var i = 0; i < this.bullets.length; i++) {
+
+        firstX = obj.pos[0];
+        firstY = obj.pos[1];
+        secondX = this.bullets[i].pos[0];
+        secondY = this.bullets[i].pos[1];
+
+        if (firstX === secondX && firstY === secondY) {
+          index = i;
+          break;
+        }
+      }
+
+      if (index !== null) {
+        this.bullets.splice(index, 1);
+      }
+
     } else if (obj instanceof Asteroids.Ship) {
 
       this.respawnShip(); /* CALL RESPAWN INSTEAD*/

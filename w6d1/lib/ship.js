@@ -4,13 +4,13 @@
 
   var Ship  = Asteroids.Ship = function(obj) {
 
-    var COLOR = "red"
+    var COLOR = "red";
     var RADIUS = 20;
 
     this.invincible = true;
     this.flash = 0;
 
-    var ast = {
+    var shipObj = {
       pos: obj.pos,
       vel: [0, 0],
       radius: RADIUS,
@@ -18,7 +18,7 @@
       game: obj.game
     }
 
-    Asteroids.MovingObject.call(this, ast);
+    Asteroids.MovingObject.call(this, shipObj);
   };
 
   util.inherits(Ship, Asteroids.MovingObject);
@@ -65,6 +65,21 @@
     if(this.vel[0] > 0) {
       this.vel[0] -= 0.5;
     }
+  }
+
+  Ship.prototype.fireBullet = function(){
+    
+    bulletPos = this.pos.slice();
+    bulletVel = this.vel.slice();
+
+    var bulletObj = {
+      pos: bulletPos,
+      vel: bulletVel,
+      game: this.game
+    };
+
+    newBullet = new Asteroids.Bullet(bulletObj);
+    this.game.bullets.push(newBullet);
   }
 
 })();

@@ -4,6 +4,7 @@
   var KEYDOWN = '40';
   var KEYRIGHT = '39';
   var KEYLEFT = '37';
+  var FIRE = '32';
 
   var GameView = Asteroids.GameView = function(canvasEl) {
     this.ctx = canvasEl.getContext("2d");
@@ -12,7 +13,8 @@
       KEYUP: false,
       KEYDOWN: false,
       KEYLEFT: false,
-      KEYRIGHT: false
+      KEYRIGHT: false,
+      FIRE: false 
     };
   }
 
@@ -25,7 +27,8 @@
     if (e.keyCode == KEYUP ||
         e.keyCode == KEYDOWN ||
         e.keyCode == KEYLEFT ||
-        e.keyCode == KEYRIGHT) {
+        e.keyCode == KEYRIGHT ||
+        e.keyCode == FIRE) {
       this.keyPresses[e.keyCode] = true;
     }
   }
@@ -35,7 +38,8 @@
     if (e.keyCode == KEYUP ||
         e.keyCode == KEYDOWN ||
         e.keyCode == KEYLEFT ||
-        e.keyCode == KEYRIGHT) {
+        e.keyCode == KEYRIGHT ||
+        e.keyCode == FIRE) {
       this.keyPresses[e.keyCode] = false;
     }
   }
@@ -54,6 +58,9 @@
     if (this.keyPresses[KEYLEFT] == true) { //left
       this.game.ship.power([-2,0]);
     }
+    if (this.keyPresses[FIRE] == true) { //fire
+      this.game.ship.fireBullet();
+    }
 
   };
 
@@ -61,9 +68,6 @@
   GameView.prototype.start = function() {
 
     var self = this;
-
-    console.log(this.keyPresses);
-
     this.bindKeyHandlers();
 
     window.setInterval((function () {
