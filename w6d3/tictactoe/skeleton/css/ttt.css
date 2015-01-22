@@ -1,0 +1,17 @@
+.square {
+  float: left;
+  background-color: gray;
+  width: 50px;
+  height: 50px;
+  box-sizing: border-box;
+  border: 2px solid #000;
+  font-size: 45px;
+  text-align: center;
+  line-height: 45px;
+}
+.square:hover {
+  background-color: yellow;
+}
+#main {
+  width: 150px;
+}

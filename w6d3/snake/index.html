@@ -1,0 +1,30 @@
+<html>
+  <head>
+    <title>Snake</title>
+    <link rel="stylesheet" href="./snake.css">
+    <link href='http://fonts.googleapis.com/css?family=Share+Tech+Mono' rel='stylesheet' type='text/css'>
+
+  </head>
+  <body>
+
+    <h1>snake</h1>
+
+    <div class="score"></div>
+    <div id="main">
+    </div>
+
+    <div class="gameover">
+      Game Over!<br>
+      <button onclick="location.href='./index.html'">Play Again!</button>
+    </div>
+
+    <script charset="utf-8" src="https://code.jquery.com/jquery-2.1.3.js">
+
+    </script>
+    <script charset="utf-8" src="./snake.js"></script>
+    <script charset="utf-8" src="./snake-view.js"></script>
+    <script charset="utf-8">
+      var snakeView = new S.View(48, 48, $('#main'));
+    </script>
+  </body>
+</html>

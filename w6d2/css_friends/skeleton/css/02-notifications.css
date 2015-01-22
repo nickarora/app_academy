@@ -1,0 +1,46 @@
+/* PHASE 2: Notifications */
+
+.badge {
+  background-color: black;
+  
+  color: white;
+  display: inline-block;
+  width: 1.5em;
+  height: 1.5em;
+
+  border-radius: 50%;
+  line-height: 18px;
+  text-align: center;
+}
+
+nav .dropdown {
+  position: absolute;
+  left: 0px;
+  display: none;
+  margin: 0;
+}
+
+nav .dropdown * {
+  max-width: 150%;
+  top: -2px;
+  color: black;
+  border: 1px solid #aaa;
+}
+
+nav .dropdown > li {
+  background-color: #fff;
+  white-space: nowrap;
+  float: none;
+}
+
+nav .dropdown > li:hover {
+  background-color: #eee;
+}
+
+nav li:hover .badge {
+  background-color: red;
+}
+
+nav li:hover .dropdown {
+  display: block;
+}

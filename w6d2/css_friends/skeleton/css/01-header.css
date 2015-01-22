@@ -1,0 +1,65 @@
+/* PHASE 1: Header */
+
+/*Font Weights: 300, 400, 700
+Font Sizes: 36px, 24px, 16px, 14px, 12px*/
+
+body {
+  font-family: 'Roboto', sans-serif;
+  font-weight: 400;
+  font-size: 12px;
+  box-sizing: border-box;
+  position: relative;
+}
+
+
+nav {
+  z-index: 1;
+  position: relative;
+  background-color: red;
+  color: white;
+  border: 1px solid #eee;
+  border-left: 0;
+  border-right: 0;
+  height: 43px;
+  line-height: 43px;
+
+}
+
+nav * {
+  height: 41px;
+}
+
+nav h1 {
+  width:197px;
+  float: left;
+  text-align: center;
+  font-weight: 700;
+  margin-left: 67px;
+}
+
+nav a {
+  display: inline-block;
+}
+
+nav ul {
+  float: right;
+  margin-right: 67px;
+  position: relative;
+}
+
+nav li {
+  float: left;
+  padding: 0 20px;
+  position: relative;
+}
+
+nav h1, li {
+  border: 1px solid #eee;
+  border-top: 0;
+  border-bottom: 0;
+}
+
+nav li:hover {
+  background-color: black;
+}
+

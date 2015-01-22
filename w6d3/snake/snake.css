@@ -1,0 +1,37 @@
+* {
+  margin: auto;
+  font-family: 'Share Tech Mono', sans-serif ;
+  text-align: center;
+}
+
+h1 {
+  margin-top: 20px;
+}
+
+#main {
+  width: 480px;
+  height: 480px;
+}
+
+.cell {
+  width: 10px;
+  height: 10px;
+  box-sizing: border-box;
+  border: 1px solid #aaa;
+  float: left;
+}
+
+.score {
+  margin-top: 20px;
+  font-size: 24px;
+  width: 480px;
+  height: 30px;
+}
+
+.gameover {
+  margin-top: 10px;
+  display: none;
+  text-align: center;
+  color: red;
+  font-size: 24px;
+}
