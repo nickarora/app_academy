@@ -17,7 +17,7 @@
     var that = this;
     this.gameLoop = setInterval(function(){
       that.step();
-    }, 50);
+    }, 100);
   };
 
   View.prototype.initBoard = function(){
@@ -33,12 +33,51 @@
   };
 
   View.prototype.drawBoard = function(){
+    
+    $('.cell').css('background-color', '#DFD3B6');
+    $('.cell').css('background-image', 'none');
 
-    $('.cell').css('background-color', '#eee');
-
-    this.snake.segments.forEach(function(pos){
-      $('.row-' + pos.row + '.col-' + pos.col).css('background-color', 'green');
-    });
+    var segments = this.snake.segments.length;
+    for(var i = 0; i < segments; i++){
+      var pos = this.snake.segments[i];
+      if (i == 0){
+        var snakeHead = '';
+        switch(this.snake.dir){
+          case "N":
+            snakeHead = 'url(./snake-up.gif)';
+            break;
+          case "E":
+            snakeHead = 'url(./snake-right.gif)';
+            break;
+          case "S":
+            snakeHead = 'url(./snake-down.gif)';
+            break;
+          case "W":
+            snakeHead = 'url(./snake-left.gif)';
+            break;  
+        }
+        $('.row-' + pos.row + '.col-' + pos.col).css('background-image', snakeHead);
+      } else if (i == segments - 1) {
+        var tail = '';
+        switch(pos.dirTo(this.snake.segments[i-1])){
+          case "N":
+            tail = 'url(./tail-down.gif)';
+            break;
+          case "E":
+            tail = 'url(./tail-right.gif)';
+            break;
+          case "S":
+            tail = 'url(./tail-up.gif)';
+            break;
+          case "W":
+            tail = 'url(./tail-left.gif)';
+            break;  
+        }
+        $('.row-' + pos.row + '.col-' + pos.col).css('background-image', tail);
+      } else {
+        $('.row-' + pos.row + '.col-' + pos.col).css('background-color', '#A8C545');  
+      }
+    }
 
     var aPos = this.apple.pos;
     $('.row-' + aPos.row + '.col-' + aPos.col).css('background-color', 'red');

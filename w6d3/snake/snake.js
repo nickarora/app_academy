@@ -89,6 +89,36 @@
     return (this.row == otherCoord.row && this.col == otherCoord.col);
   }
 
+  Coords.prototype.dirTo = function(otherCoord){
+    deltas = [];
+    deltas.push(new Coords(-1, 0));
+    deltas.push(new Coords(0, 1));
+    deltas.push(new Coords(1, 0));
+    deltas.push(new Coords(0, -1));
+
+    result = null;
+    for(var i = 0; i < deltas.length; i++){
+      var newCoord = this.plus(deltas[i]);
+      if (newCoord.eq(otherCoord)){
+        result = i;
+        break;
+      }
+    }
+
+    switch(result){
+      case 0:
+        return "N";
+      case 1:
+        return "E";
+      case 2:
+        return "S";
+      case 3:
+        return "W";
+    }
+
+    return false;
+  }
+
   Board = S.Board = function(width, height) {
     this.grid = [];
     for(var i = 0; i < height; i++) {
@@ -121,7 +151,7 @@
   Board.prototype.checkCollisions = function(){
     if (this.snake.isAt(this.apple.pos)){
       this.snake.growthCounter = this.apple.growthFactor;
-      this.apple.growthFactor *= 2;
+      this.apple.growthFactor = Math.floor(1.3 * this.apple.growthFactor);
       this.apple.pos = this.randomPos();
       this.numApples += 1;
     }
