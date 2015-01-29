@@ -1,0 +1,25 @@
+<% if (type === 'title') { %>
+  <form>
+    <div class="form-group">
+    <input type="text" class="form-control highmargin" name="post[title]" value="<%= post.escape('title') %>">
+    </div>
+  </form>
+<% } else { %>
+  <h3 class='edit title'><%= post.escape('title') %></h3>
+<% } %>
+
+
+<% if (type === 'body') { %>
+  <form>
+    <div class="form-group">
+    <textarea name="post[body]" class="form-control" id="body"><%=post.escape('body')%></textarea>
+    </div>
+  </form>
+<% } else { %>
+  <pre class='edit body'>
+    <%= post.escape('body') %>
+  </pre>
+<% } %>
+
+<br>
+<a href="#">Back</a> | <a href="#/posts/<%= post.escape('id') %>/edit">Edit</a>

@@ -1,0 +1,57 @@
+// Place all the styles related to the root controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+
+
+textarea{   
+  min-height:300px;  
+}
+
+h1 {
+	font-size: 30px !important;
+	color: #f0ad4e !important;
+	display: inline;
+	text-transform: uppercase;
+	letter-spacing: -3px;
+	padding: 0;
+	margin: 0 0 0 2% !important;	
+}
+
+
+.sidebar button {
+  display: inline-block;
+  padding: 0px;
+  margin: 0px;
+}
+
+.sidebar a {
+	display: inline-block;
+}
+
+.sidebar ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.sidebar li {
+	padding: 0;
+}
+
+.nopadding {
+   padding: 0 !important;
+   margin: 0 !important;
+}
+
+.lowmargin {
+   padding: 0 !important;
+   margin: 0 0 20px 0 !important;
+}
+
+.highmargin {
+   margin: 10px 0 0 0 !important;
+}
+
+.nav {
+	margin-top: 10px;
+}
