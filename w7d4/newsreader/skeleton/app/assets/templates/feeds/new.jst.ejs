@@ -1,0 +1,15 @@
+<h3>Create a New Feed</h3>
+
+<form>
+
+  <label for="title">Title</label>
+  <input type="text" name="feed[title]" value="<%= feed.escape('title') %>">
+
+  <br>
+  <label for="url">URL</label>
+  <input type="text" name="feed[url]" value="<%= feed.escape('url') %>">
+
+  <br>
+  <input type="submit" value="Save Feed">
+
+</form>

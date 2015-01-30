@@ -1,0 +1,89 @@
+section {
+  margin: auto;
+  width: 720px;
+  font-family: 'Bubblegum Sans', cursive;
+}
+
+header {
+  position: relative;
+  height: 50px;
+}
+
+h1 {
+  absolute: 9;
+  margin: 0;
+  padding: 0;
+  color: #A8C545;
+  text-align: left;
+  font-size: 60px;
+  letter-spacing: -3px;
+   -webkit-text-stroke: 0.25px black;
+}
+
+.main {
+  float: left;
+  width: 520px;
+  height: 520px;
+  border: 15px solid #524D43;
+  border-radius: 15px;
+
+}
+
+.cell {
+  width: 20px;
+  height: 20px;
+  box-sizing: border-box;
+  float: left;
+}
+.score-header {
+  font-family: 'Share Tech Mono', sans-serif ;
+  font-size: 24px;
+  float: left;
+  color: #524D43;
+  width: 160px;
+  margin-left: 10px;
+  text-align: center;
+}
+
+.score {
+  font-family: 'Share Tech Mono', sans-serif ;
+  font-size: 24px;
+  float: left;
+  background-color: #524D43;
+  border: 5px solid #524D43;
+  color: #A8C545;
+  border-radius: 5px;
+  margin-left: 10px;
+  width: 150px;
+  height: 30px;
+  text-align: right;
+}
+
+.gameover {
+  display: none;
+  float: left;
+  margin-top: 25px;
+  margin-left: 10px;
+  width: 160px;
+  text-align: center;
+  color: #CE3134;
+  font-size: 24px;
+}
+
+.btn {
+  -webkit-border-radius: 18;
+  -moz-border-radius: 18;
+  border: 0px;
+  border-radius: 18px;
+  font-family: 'Share Tech Mono', sans-serif ;
+  color: #ffffff;
+  font-size: 16px;
+  background: #CE3134;
+  padding: 8px 20px 10px 20px;
+  text-decoration: none;
+}
+
+.btn:hover {
+  background: #7F3030;
+  text-decoration: none;
+}

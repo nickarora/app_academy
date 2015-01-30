@@ -1,30 +1,35 @@
 <html>
   <head>
     <title>Snake</title>
-    <link rel="stylesheet" href="./snake.css">
+    <link rel="stylesheet" href="./css/snake.css">
     <link href='http://fonts.googleapis.com/css?family=Share+Tech+Mono' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Bubblegum+Sans' rel='stylesheet' type='text/css'>
 
   </head>
   <body>
+    <section>
+      <header>
+        <h1>The Snake Game</h1>
+      </header>
+      <div class="main"></div>
+      <aside>
+        <div class="score-header">SCORE</div>
+        <div class="score"></div>
+        <div class="gameover">
+          Game Over!
+          <button class="btn" onclick="location.href='./index.html'">Play Again!</button>
+        </div>
+      </aside>
+    </section>
 
-    <h1>snake</h1>
-
-    <div class="score"></div>
-    <div id="main">
-    </div>
-
-    <div class="gameover">
-      Game Over!<br>
-      <button onclick="location.href='./index.html'">Play Again!</button>
-    </div>
-
-    <script charset="utf-8" src="https://code.jquery.com/jquery-2.1.3.js">
-
-    </script>
-    <script charset="utf-8" src="./snake.js"></script>
-    <script charset="utf-8" src="./snake-view.js"></script>
+    <script charset="utf-8" src="https://code.jquery.com/jquery-2.1.3.js"></script>
+    <script charset="utf-8" src="./js/coords.js"></script>
+    <script charset="utf-8" src="./js/apple.js"></script>
+    <script charset="utf-8" src="./js/snake.js"></script>
+    <script charset="utf-8" src="./js/board.js"></script>
+    <script charset="utf-8" src="./js/snakeView.js"></script>
     <script charset="utf-8">
-      var snakeView = new S.View(25, 25, $('#main'));
+      var snakeView = new S.View(26, 26, $('.main'));
     </script>
   </body>
 </html>

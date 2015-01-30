@@ -1,6 +1,7 @@
 (function(){
 
   var View = S.View = function(width, height, $el){
+    var that = this;
 
     this.width = width;
     this.height = height;
@@ -14,14 +15,13 @@
     this.initBoard();
 
     this.bindListeners();
-    var that = this;
+    
     this.gameLoop = setInterval(function(){
       that.step();
     }, 100);
   };
 
   View.prototype.initBoard = function(){
-
     for(var row = 0; row < this.height; row++) {
       for(var col = 0; col < this.width; col++) {
         var $cell = $('<div class="cell" >');
@@ -44,16 +44,16 @@
         var snakeHead = '';
         switch(this.snake.dir){
           case "N":
-            snakeHead = 'url(./snake-up.gif)';
+            snakeHead = 'url(./img/snake-up.gif)';
             break;
           case "E":
-            snakeHead = 'url(./snake-right.gif)';
+            snakeHead = 'url(./img/snake-right.gif)';
             break;
           case "S":
-            snakeHead = 'url(./snake-down.gif)';
+            snakeHead = 'url(./img/snake-down.gif)';
             break;
           case "W":
-            snakeHead = 'url(./snake-left.gif)';
+            snakeHead = 'url(./img/snake-left.gif)';
             break;  
         }
         $('.row-' + pos.row + '.col-' + pos.col).css('background-image', snakeHead);
@@ -61,26 +61,62 @@
         var tail = '';
         switch(pos.dirTo(this.snake.segments[i-1])){
           case "N":
-            tail = 'url(./tail-down.gif)';
+            tail = 'url(./img/tail-down.gif)';
             break;
           case "E":
-            tail = 'url(./tail-right.gif)';
+            tail = 'url(./img/tail-right.gif)';
             break;
           case "S":
-            tail = 'url(./tail-up.gif)';
+            tail = 'url(./img/tail-up.gif)';
             break;
           case "W":
-            tail = 'url(./tail-left.gif)';
+            tail = 'url(./img/tail-left.gif)';
             break;  
         }
         $('.row-' + pos.row + '.col-' + pos.col).css('background-image', tail);
       } else {
-        $('.row-' + pos.row + '.col-' + pos.col).css('background-color', '#A8C545');  
+
+        var bef = pos.dirTo(this.snake.segments[i+1]);
+        var aft = pos.dirTo(this.snake.segments[i-1]);
+        var piece = ''
+
+        if (  (bef == "S" && aft == "N") ||
+              (bef == "N" && aft == "S") ||
+              (bef == "E" && aft == "W") ||
+              (bef == "W" && aft == "E")) {
+        
+          $('.row-' + pos.row + '.col-' + pos.col).css('background-color', '#A8C545');  
+
+        } else {
+
+          if (  (bef == "S" && aft == "E") ||
+                (bef == "E" && aft == "S") ) {
+            piece = 'url(./img/downright.gif)';
+          }
+
+          if (  (bef == "S" && aft == "W") ||
+                (bef == "W" && aft == "S") ) {
+            piece = 'url(./img/downleft.gif)';
+          }
+
+          if (  (bef == "N" && aft == "E") ||
+                (bef == "E" && aft == "N") ) {
+            piece = 'url(./img/upright.gif)';
+          }
+
+          if (  (bef == "N" && aft == "W") ||
+                (bef == "W" && aft == "N") ) {
+            piece = 'url(./img/upleft.gif)';
+          }
+
+          $('.row-' + pos.row + '.col-' + pos.col).css('background-image', piece);
+        }
       }
     }
 
     var aPos = this.apple.pos;
-    $('.row-' + aPos.row + '.col-' + aPos.col).css('background-color', 'red');
+    var apple = 'url(./img/apple.png)';
+    $('.row-' + aPos.row + '.col-' + aPos.col).css('background-image', apple);
   };
 
   // main game loop
@@ -95,7 +131,7 @@
   };
 
   View.prototype.drawScore = function(){
-    $('.score').text("Score: " + this.board.numApples * 10);
+    $('.score').text(this.board.numApples * 10);
   }
   View.prototype.resetTurnFlag = function(){
     this.turnFlag = false;
