@@ -11,14 +11,14 @@
     this.snake = this.board.snake;
     this.apple = this.board.apple;
     this.turnFlag = false;
-
+    this.paused = false;
     this.initBoard();
 
-    this.bindListeners();
-    
+    this.bindListeners();    
     this.gameLoop = setInterval(function(){
       that.step();
     }, 100);
+
   };
 
   View.prototype.initBoard = function(){
@@ -34,9 +34,18 @@
 
   View.prototype.drawBoard = function(){
     
-    $('.cell').css('background-color', '#DFD3B6');
-    $('.cell').css('background-image', 'none');
+    var $cell = $('.cell')
 
+    if (this.paused) {
+      var $pause = $('<div class=layer></div>')
+      $cell.append($pause)
+    } else {
+      $cell.find('div').remove();
+    }
+
+    $cell.css('background-color', '#DFD3B6');
+    $cell.css('background-image', 'none');
+    
     var segments = this.snake.segments.length;
     for(var i = 0; i < segments; i++){
       var pos = this.snake.segments[i];
@@ -119,14 +128,15 @@
     $('.row-' + aPos.row + '.col-' + aPos.col).css('background-image', apple);
   };
 
-  // main game loop
   View.prototype.step = function(){
-    this.resetTurnFlag();
-    this.drawBoard();
-    this.drawScore();
-    this.snake.move();
-    if (!this.board.checkCollisions()) {
-      this.gameOver();
+    if (!this.paused){
+      this.resetTurnFlag();
+      this.drawBoard();
+      this.drawScore();
+      this.snake.move();
+      if (!this.board.checkCollisions()) {
+        this.gameOver();
+      }
     }
   };
 
@@ -139,9 +149,29 @@
 
   View.prototype.gameOver = function() {
     clearInterval(this.gameLoop);
+    $(window).off();
+    $gameover = $('.gameover')
+    $('.main').append($gameover);
     $('.gameover').css('display', 'block');
+
+    var that = this;
+    this.gameOverCounter = 0;
+    this.gameOverLoop = setInterval(function(){
+      that.animateGameOver();
+    }, 1);
   };
 
+  View.prototype.animateGameOver = function(){
+    if (this.gameOverCounter > 10) {
+      clearInterval(this.gameOverLoop);
+      return;
+    }
+    var $color = $("<div class='layer2'></div>")
+    var $cell = $('.cell');
+    $cell.append($color)
+    this.gameOverCounter++;
+    return;
+  }
 
   View.prototype.bindListeners = function(){
     var that = this;
@@ -150,9 +180,13 @@
     });
   };
 
-
-  // bind to listener
   View.prototype.handleKeyEvent = function(key) {
+
+    if (key == 27){
+      this.paused = this.paused ? false : true;
+      this.drawBoard();
+    }
+
     if (!this.turnFlag) {
       this.turnFlag = true;
       switch (key) {

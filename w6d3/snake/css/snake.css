@@ -21,6 +21,7 @@ h1 {
 }
 
 .main {
+  position: relative;
   float: left;
   width: 520px;
   height: 520px;
@@ -30,11 +31,33 @@ h1 {
 }
 
 .cell {
+  position: relative;
   width: 20px;
   height: 20px;
   box-sizing: border-box;
   float: left;
 }
+
+.layer {
+  background-color: #CE3134;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: .2;
+}
+
+.layer2 {
+  background-color: #CE3134;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: .1;
+}
+
 .score-header {
   font-family: 'Share Tech Mono', sans-serif ;
   font-size: 24px;
@@ -43,6 +66,15 @@ h1 {
   width: 160px;
   margin-left: 10px;
   text-align: center;
+}
+
+.controls {
+  float: left;
+  text-align: center;
+  color: #524D43;
+  font-size: 24px;
+  width: 160px;
+  margin-left: 10px; 
 }
 
 .score {
@@ -61,13 +93,24 @@ h1 {
 
 .gameover {
   display: none;
-  float: left;
-  margin-top: 25px;
-  margin-left: 10px;
-  width: 160px;
   text-align: center;
   color: #CE3134;
   font-size: 24px;
+  position: absolute;
+  width: 300px;
+  height: 126px;
+  left: 110px;
+  top: 180px;
+  border-radius: 25px;
+  background-color: #DFD3B6;
+}
+
+p {
+  margin: 10px 0 0 0;
+}
+
+.lower {
+  margin: 25px 0 0 0;
 }
 
 .btn {
